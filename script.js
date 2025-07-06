@@ -31,6 +31,7 @@ if (novoValor >= 3) {
     linha2.classList.remove('linha2');
     linha1.style.borderRight = 'none';
     linha2.style.borderRight = 'none';
+    linha1.classList.add('msgAleatoria');
 
     linha1.textContent = msg;
     linha2.textContent = '';

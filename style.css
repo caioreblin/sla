@@ -77,6 +77,11 @@ html {
   }
 }
 
+.msgAleatoria {
+  max-width: 300px; 
+  white-space: break-spaces;
+}
+
 .toque {
   margin-top: 2rem;
   font-size: 1.2rem;
