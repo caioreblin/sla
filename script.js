@@ -2,6 +2,7 @@ const botao = document.getElementById("botao");
 const telaInicial = document.querySelector(".tela-inicial");
 const cartao1 = document.querySelector(".cartao1");
 const cartao2 = document.querySelector(".cartao2");
+const body = document.body;
 
 // const acessos = localStorage.getItem('acessos') || 0;
 // const novoValor = Number(acessos) + 1;
@@ -43,4 +44,6 @@ botao.addEventListener("click", () => {
     telaInicial.classList.add("hidden");
     cartao1.classList.remove("hidden");
     cartao2.classList.remove("hidden");
+    body.style.height = "auto";
+    body.style.width = "auto";
 });
