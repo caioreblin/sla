@@ -18,9 +18,8 @@ html {
 
 /* Fundo estrelado */
 .stars {
-  position: absolute;
-  width: 100%;
-  height: 100%;
+  position: fixed;
+  inset: 0;
   background: url('https://raw.githubusercontent.com/KevinAlt/particles-bg/main/star-bg.png') repeat;
   background-size: contain;
   animation: starsMove 60s linear infinite;
@@ -37,10 +36,58 @@ html {
   }
 }
 
+/* Coracoes flutuantes */
+.coracoes {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.coracao {
+  position: absolute;
+  bottom: -10%;
+  color: #ff4d6d;
+  opacity: 0;
+  animation: subir linear infinite;
+}
+
+@keyframes subir {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.7;
+  }
+
+  90% {
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: translateY(-110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.coracao:nth-child(1) { left: 5%; font-size: 1rem; animation-duration: 14s; animation-delay: 0s; }
+.coracao:nth-child(2) { left: 15%; font-size: 1.4rem; animation-duration: 18s; animation-delay: 2s; }
+.coracao:nth-child(3) { left: 25%; font-size: 0.8rem; animation-duration: 11s; animation-delay: 4s; }
+.coracao:nth-child(4) { left: 38%; font-size: 1.2rem; animation-duration: 16s; animation-delay: 1s; }
+.coracao:nth-child(5) { left: 50%; font-size: 1rem; animation-duration: 13s; animation-delay: 3s; }
+.coracao:nth-child(6) { left: 62%; font-size: 1.5rem; animation-duration: 19s; animation-delay: 5s; }
+.coracao:nth-child(7) { left: 74%; font-size: 0.9rem; animation-duration: 12s; animation-delay: 0.5s; }
+.coracao:nth-child(8) { left: 84%; font-size: 1.3rem; animation-duration: 17s; animation-delay: 2.5s; }
+.coracao:nth-child(9) { left: 92%; font-size: 1.1rem; animation-duration: 15s; animation-delay: 4.5s; }
+.coracao:nth-child(10) { left: 45%; font-size: 0.85rem; animation-duration: 20s; animation-delay: 6s; }
+
 /* Tela inicial */
 .tela-inicial {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -52,7 +99,7 @@ html {
 }
 
 .frase-inicial {
-  font-size: 1.6rem;
+  font-size: clamp(1.2rem, 6vw, 1.6rem);
   color: #facc15;
   white-space: nowrap;
   overflow: hidden;
@@ -77,9 +124,13 @@ html {
   }
 }
 
-.msgAleatoria {
-  max-width: 300px; 
-  white-space: break-spaces;
+.contador {
+  margin-top: 1.25rem;
+  font-size: clamp(0.9rem, 4vw, 1.1rem);
+  color: #ff4d6d;
+  font-weight: bold;
+  opacity: 0;
+  animation: fadeIn 1s ease 3s both;
 }
 
 .toque {
@@ -118,16 +169,15 @@ html {
 
 .cartao {
   position: relative;
-  top: 0;
-  left: 0;
   z-index: 2;
-  height: 100%;
+  min-height: 100vh;
   width: 100%;
   background: linear-gradient(160deg, #0f0f0f, #1e1e1e);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  padding: 3rem 1rem;
   text-align: center;
   animation: fadeIn 1s ease forwards;
 }
@@ -166,6 +216,15 @@ html {
   margin: 0.5rem 0;
 }
 
+.placeholder-texto {
+  border: 1px dashed #e11d48;
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-style: italic;
+  color: #9f1239;
+  background: #fff1f2;
+}
+
 .assinatura {
   font-size: 0.9rem;
   color: #555;
@@ -176,6 +235,158 @@ html {
   display: none;
 }
 
+/* Indicador de scroll */
+.scroll-hint {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.5rem;
+  color: #ff4d6d;
+  animation: pulse 2s infinite;
+  z-index: 3;
+}
+
+.titulo-secao {
+  color: #e11d48;
+  font-size: clamp(1.2rem, 5vw, 1.6rem);
+  margin-bottom: 0.5rem;
+}
+
+/* Linha do tempo */
+.conteudo-timeline {
+  background: #fff;
+  color: #1a1a1a;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  max-width: 90%;
+  width: 420px;
+  animation: fadeInUp 1s ease;
+  text-align: center;
+}
+
+.timeline {
+  text-align: left;
+  margin-top: 1rem;
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 1.75rem;
+  padding-bottom: 1.5rem;
+  border-left: 2px solid #e11d48;
+}
+
+.timeline-item:last-child {
+  border-left: 2px solid transparent;
+  padding-bottom: 0;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -7px;
+  top: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #e11d48;
+  box-shadow: 0 0 8px rgba(225, 29, 72, 0.6);
+}
+
+.timeline-data {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #be123c;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.timeline-content h3 {
+  margin: 0.2rem 0 0.5rem;
+  font-size: 1.05rem;
+}
+
+.timeline-content img {
+  width: 100%;
+  max-width: 280px;
+  border-radius: 10px;
+  margin-top: 0.25rem;
+  display: block;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Motivos para amar */
+.conteudo-motivos {
+  width: 380px;
+}
+
+.instrucao {
+  font-size: 0.85rem;
+  color: #777;
+  margin-bottom: 1rem;
+}
+
+.lista-motivos {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.motivo-card {
+  width: 100%;
+  height: 110px;
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.motivo-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.motivo-card.flipped .motivo-inner {
+  transform: rotateY(180deg);
+}
+
+.motivo-frente,
+.motivo-verso {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.motivo-frente {
+  background: linear-gradient(135deg, #e11d48, #be123c);
+  color: #fff;
+  font-size: 2rem;
+}
+
+.motivo-verso {
+  background: #fff5f5;
+  color: #1a1a1a;
+  border: 1px solid #fecdd3;
+  transform: rotateY(180deg);
+  font-size: 0.9rem;
+}
+
+@media (min-width: 600px) {
+  .lista-motivos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Galeria */
 .galeria {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));

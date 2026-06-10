@@ -1,49 +1,46 @@
 const botao = document.getElementById("botao");
 const telaInicial = document.querySelector(".tela-inicial");
-const cartao1 = document.querySelector(".cartao1");
-const cartao2 = document.querySelector(".cartao2");
+const cartoes = document.querySelectorAll(".cartao");
 const body = document.body;
+const contador = document.getElementById("contador");
 
-// const acessos = localStorage.getItem('acessos') || 0;
-// const novoValor = Number(acessos) + 1;
-// localStorage.setItem('acessos', novoValor);
+const INICIO_NAMORO = new Date(2025, 7, 17); // 17/08/2025
 
-// const mensagensEspeciais = [
-//     "Já é a {n}ª vez que você entra aqui, tô de olho 👀",
-//     "Vou ter que tirar isso do ar pra você não ficar entrando tanto 😅",
-//     "Você tá viciada nessa página, né?",
-//     "Isso tá virando rotina já hein, rsrs"
-// ];
+function atualizarContador() {
+    const hoje = new Date();
 
-// if (novoValor >= 3) {
-//     const telaInicial = document.querySelector('.tela-inicial');
-//     const linha1 = document.querySelector('.linha1');
-//     const linha2 = document.querySelector('.linha2');
-//     const toque = document.querySelector('#botao');
+    let anos = hoje.getFullYear() - INICIO_NAMORO.getFullYear();
+    let meses = hoje.getMonth() - INICIO_NAMORO.getMonth();
+    let dias = hoje.getDate() - INICIO_NAMORO.getDate();
 
-//     let msg;
-//     if (novoValor === 3) {
-//         msg = "Terceira vez aqui? Pode pedir música no Fantástico.";
-//     } else {
-//         msg = mensagensEspeciais[Math.floor(Math.random() * mensagensEspeciais.length)]
-//             .replace('{n}', novoValor);
-//     }
+    if (dias < 0) {
+        meses--;
+        const ultimoDiaMesAnterior = new Date(hoje.getFullYear(), hoje.getMonth(), 0).getDate();
+        dias += ultimoDiaMesAnterior;
+    }
 
-//     linha1.classList.remove('linha1');
-//     linha2.classList.remove('linha2');
-//     linha1.style.borderRight = 'none';
-//     linha2.style.borderRight = 'none';
-//     linha1.classList.add('msgAleatoria');
+    if (meses < 0) {
+        anos--;
+        meses += 12;
+    }
 
-//     linha1.textContent = msg;
-//     linha2.textContent = '';
-// }
+    const partes = [];
+    if (anos > 0) partes.push(`${anos} ${anos === 1 ? "ano" : "anos"}`);
+    if (meses > 0) partes.push(`${meses} ${meses === 1 ? "mês" : "meses"}`);
+    partes.push(`${dias} ${dias === 1 ? "dia" : "dias"}`);
 
+    contador.textContent = `Juntos há ${partes.join(", ")} 💕`;
+}
+
+atualizarContador();
 
 botao.addEventListener("click", () => {
     telaInicial.classList.add("hidden");
-    cartao1.classList.remove("hidden");
-    cartao2.classList.remove("hidden");
+    cartoes.forEach((cartao) => cartao.classList.remove("hidden"));
     body.style.height = "auto";
     body.style.width = "auto";
+});
+
+document.querySelectorAll(".motivo-card").forEach((card) => {
+    card.addEventListener("click", () => card.classList.toggle("flipped"));
 });
